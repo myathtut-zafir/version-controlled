@@ -19,7 +19,9 @@ class ObjectStoreTest extends TestCase
     use RefreshDatabase;
 
     protected ObjectController $controller;
+
     protected IObjectService $mockService;
+
     protected ObjectService $service;
 
     protected function setUp(): void
@@ -28,7 +30,7 @@ class ObjectStoreTest extends TestCase
 
         $this->mockService = Mockery::mock(IObjectService::class);
         $this->controller = new ObjectController($this->mockService);
-        $this->service = new ObjectService();
+        $this->service = new ObjectService;
     }
 
     protected function tearDown(): void
@@ -36,6 +38,7 @@ class ObjectStoreTest extends TestCase
         Mockery::close();
         parent::tearDown();
     }
+
     /**
      * Test controller store method returns correct response structure.
      */
@@ -112,7 +115,6 @@ class ObjectStoreTest extends TestCase
         $this->assertEquals('resource_test', $responseData['data']['key']);
         $this->assertEquals(['nested' => 'data'], $responseData['data']['value']);
     }
-
 
     /**
      * Test service storeObject creates a new ObjectStore record.
@@ -237,6 +239,7 @@ class ObjectStoreTest extends TestCase
 
     /**
      * Test service storeObject preserves data integrity.
+     *
      * @throws Throwable
      */
     public function test_service_store_object_preserves_data_integrity(): void

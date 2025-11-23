@@ -13,7 +13,7 @@ class ObjectStoreValidationRequestTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->request = new ObjectStoreValidationRequest();
+        $this->request = new ObjectStoreValidationRequest;
     }
 
     public function test_rules_returns_correct_structure(): void
