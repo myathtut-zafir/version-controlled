@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Contracts\IObjectService;
 use App\Http\Controllers\Api\V1\ObjectController;
 use App\Http\Requests\ObjectStoreValidationRequest;
-use App\Http\Resources\ObjectStoreResource;
 use App\Models\ObjectStore;
 use Illuminate\Http\JsonResponse;
 use Mockery;
