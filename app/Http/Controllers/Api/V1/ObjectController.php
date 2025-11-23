@@ -6,7 +6,6 @@ use App\Contracts\IObjectService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObjectStoreValidationRequest;
 use App\Http\Resources\ObjectStoreResource;
-use Illuminate\Http\Request;
 
 class ObjectController extends Controller
 {
