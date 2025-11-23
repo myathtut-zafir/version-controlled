@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 
-class ObjectStoreController extends Controller
+class ObjectController extends Controller
 {
     public function store() {}
 }
