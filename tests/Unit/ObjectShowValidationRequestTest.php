@@ -13,7 +13,7 @@ class ObjectShowValidationRequestTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->request = new ObjectShowValidationRequest();
+        $this->request = new ObjectShowValidationRequest;
     }
 
     /**

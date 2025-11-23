@@ -46,9 +46,6 @@ class ObjectStore extends Model
 
     /**
      * Scope a query to get the latest record by key.
-     * @param Builder $query
-     * @param string $key
-     * @return Builder
      */
     public function scopeLatestByKey(Builder $query, string $key): Builder
     {
