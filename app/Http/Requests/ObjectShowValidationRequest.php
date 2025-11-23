@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ObjectShowValidationRequest extends FormRequest
 {
@@ -24,7 +24,7 @@ class ObjectShowValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key' => ['required', 'max:255',Rule::exists('object_stores', 'key')],
+            'key' => ['string', 'max:255'],
         ];
     }
 
@@ -36,9 +36,8 @@ class ObjectShowValidationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'key.required' => 'The key parameter is required.',
+            'key.string' => 'The key must be a string.',
             'key.max' => 'The key may not be greater than 255 characters.',
-            'key.exists' => 'The specified key does not exist.'
         ];
     }
 
