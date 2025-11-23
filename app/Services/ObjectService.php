@@ -22,4 +22,9 @@ class ObjectService implements IObjectService
             ]);
         });
     }
+
+    public function findLatestByKey(string $key): ObjectStore
+    {
+        return ObjectStore::latestByKey($key)->firstOrFail();
+    }
 }
