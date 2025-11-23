@@ -18,7 +18,9 @@ class LatestObjectTest extends TestCase
     use RefreshDatabase;
 
     protected ObjectController $controller;
+
     protected IObjectService $mockService;
+
     protected ObjectService $service;
 
     protected function setUp(): void
