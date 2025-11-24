@@ -12,6 +12,16 @@ class ObjectController extends Controller
 {
     public function __construct(private readonly IObjectService $objectService) {}
 
+    public function index()
+    {
+        $object = $this->objectService->latestObjectList();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Resource retrieved successfully',
+            'data' => ObjectStoreResource::collection($object),
+        ]);
+    }
     public function store(ObjectStoreValidationRequest $request)
     {
         $object = $this->objectService->storeObject($request->validated());

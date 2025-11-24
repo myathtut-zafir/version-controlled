@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\IObjectService;
 use App\Models\ObjectStore;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -26,5 +27,11 @@ class ObjectService implements IObjectService
     public function findLatestByKey(string $key): ObjectStore
     {
         return ObjectStore::latestByKey($key)->firstOrFail();
+    }
+
+    public function latestObjectList(): LengthAwarePaginator
+    {
+        return ObjectStore::latestObjects()
+            ->paginate(request('per_page', 15));
     }
 }

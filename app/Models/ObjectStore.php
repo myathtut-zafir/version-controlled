@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $array)
  * @method static \Illuminate\Database\Eloquent\Builder latestByKey(string $key)
+ * @method static \Illuminate\Database\Eloquent\Builder latestObjects()
  */
 class ObjectStore extends Model
 {
@@ -51,4 +52,18 @@ class ObjectStore extends Model
     {
         return $query->where('key', $key)->orderByDesc('id');
     }
+
+    public function scopeLatestObjects(Builder $query): Builder
+    {
+        $latestIds = static::query()
+            ->selectRaw('MAX(id) as id')
+            ->groupBy('key')
+            ->pluck('id');
+
+        return $query
+            ->whereIn('id', $latestIds)
+            ->orderByDesc('created_at_timestamp')
+            ->orderByDesc('id');
+    }
 }
+
