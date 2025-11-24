@@ -66,4 +66,3 @@ class ObjectStore extends Model
             ->orderByDesc('id');
     }
 }
-

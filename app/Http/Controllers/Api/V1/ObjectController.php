@@ -6,6 +6,7 @@ use App\Contracts\IObjectService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObjectShowValidationRequest;
 use App\Http\Requests\ObjectStoreValidationRequest;
+use App\Http\Resources\ObjectListCollection;
 use App\Http\Resources\ObjectStoreResource;
 
 class ObjectController extends Controller
@@ -15,13 +16,15 @@ class ObjectController extends Controller
     public function index()
     {
         $object = $this->objectService->latestObjectList();
+        $collection = new ObjectListCollection($object);
 
         return response()->json([
             'success' => true,
             'message' => 'Resource retrieved successfully',
-            'data' => ObjectStoreResource::collection($object),
-        ]);
+            ...$collection->toArray(request()),
+        ], 200);
     }
+
     public function store(ObjectStoreValidationRequest $request)
     {
         $object = $this->objectService->storeObject($request->validated());
