@@ -22,11 +22,8 @@ class ObjectControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        // Mock the IObjectService interface
+        
         $this->mockService = Mockery::mock(IObjectService::class);
-
-        // Inject the mock into the controller
         $this->controller = new ObjectController($this->mockService);
     }
 
@@ -42,7 +39,6 @@ class ObjectControllerTest extends TestCase
     public function test_index_returns_correct_response_structure(): void
     {
         // Arrange
-        // Use a real CursorPaginator with empty data to avoid complex mocking
         $items = collect([]);
         $mockPaginator = new CursorPaginator(
             $items,
@@ -113,9 +109,6 @@ class ObjectControllerTest extends TestCase
         $this->assertEquals('test_key', $responseData['data']['key']);
     }
 
-    /**
-     * Test store method wraps result in resource.
-     */
     public function test_store_wraps_result_in_resource(): void
     {
         // Arrange
@@ -152,9 +145,6 @@ class ObjectControllerTest extends TestCase
         $this->assertEquals(['nested' => 'data'], $responseData['data']['value']);
     }
 
-    /**
-     * Test show method calls service with correct key.
-     */
     public function test_show_calls_service_with_correct_key(): void
     {
         // Arrange
