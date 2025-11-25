@@ -34,4 +34,9 @@ class ObjectService implements IObjectService
         return ObjectStore::latestObjects()
             ->cursorPaginate(ObjectStore::PER_PAGE_COUNT);
     }
+
+    public function getValueAt(string $key, int $timestamp): ObjectStore
+    {
+        return ObjectStore::byKeyAndTimestamp($key, $timestamp)->firstOrFail();
+    }
 }

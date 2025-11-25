@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static create(array $array)
  * @method static \Illuminate\Database\Eloquent\Builder latestByKey(string $key)
  * @method static \Illuminate\Database\Eloquent\Builder latestObjects()
+ * @method static \Illuminate\Database\Eloquent\Builder byKeyAndTimestamp(string $key, int $timestamp)
  */
 class ObjectStore extends Model
 {
@@ -64,6 +65,17 @@ class ObjectStore extends Model
 
         return $query
             ->whereIn('id', $latestIds)
+            ->orderByDesc('created_at_timestamp')
+            ->orderByDesc('id');
+    }
+
+    /**
+     * Scope a query to get a record by key and timestamp.
+     */
+    public function scopeByKeyAndTimestamp(Builder $query, string $key, int $timestamp): Builder
+    {
+        return $query->where('key', $key)
+            ->where('created_at_timestamp', '<=', $timestamp)
             ->orderByDesc('created_at_timestamp')
             ->orderByDesc('id');
     }
