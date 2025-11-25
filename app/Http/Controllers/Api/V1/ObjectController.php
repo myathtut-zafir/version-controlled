@@ -22,7 +22,7 @@ class ObjectController extends Controller
             'success' => true,
             'message' => 'Resource retrieved successfully',
             ...$collection->toArray(request()),
-        ], 200);
+        ]);
     }
 
     public function store(ObjectStoreValidationRequest $request)
