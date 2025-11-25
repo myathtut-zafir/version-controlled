@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Handle Model Not Found Exception
+        // Handle Model Not Found Exception.
         $exceptions->render(function (ModelNotFoundException $e, $request) {
             if ($request->expectsJson()) {
                 return response()->json([
