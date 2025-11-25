@@ -16,9 +16,6 @@ class ObjectShowValidationRequestTest extends TestCase
         $this->request = new ObjectShowValidationRequest;
     }
 
-    /**
-     * Test authorize method returns true.
-     */
     public function test_authorize_returns_true(): void
     {
         // Act
@@ -42,9 +39,6 @@ class ObjectShowValidationRequestTest extends TestCase
         $this->assertCount(1, $rules);
     }
 
-    /**
-     * Test key max length is 255 characters.
-     */
     public function test_key_max_length_is_255(): void
     {
         // Arrange
@@ -60,9 +54,6 @@ class ObjectShowValidationRequestTest extends TestCase
         $this->assertArrayHasKey('key', $validator->errors()->toArray());
     }
 
-    /**
-     * Test messages method returns correct structure.
-     */
     public function test_messages_returns_correct_structure(): void
     {
         // Act
@@ -75,9 +66,6 @@ class ObjectShowValidationRequestTest extends TestCase
         $this->assertCount(2, $messages);
     }
 
-    /**
-     * Test custom message for key max length validation.
-     */
     public function test_key_max_message(): void
     {
         // Arrange

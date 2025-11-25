@@ -15,13 +15,11 @@ class ObjectStoreModelTest extends TestCase
      */
     public function test_model_can_be_created_with_mass_assignment(): void
     {
-        $data = [
-            'key' => 'mass_assignment_test',
-            'value' => ['item1' => 'value1', 'item2' => 'value2'],
-            'created_at_timestamp' => 1700000000,
-        ];
-
-        $objectStore = ObjectStore::create($data);
+        $objectStore = ObjectStore::factory()
+            ->withKey('mass_assignment_test')
+            ->withValue(['item1' => 'value1', 'item2' => 'value2'])
+            ->withTimestamp(1700000000)
+            ->create();
 
         $this->assertInstanceOf(ObjectStore::class, $objectStore);
         $this->assertEquals('mass_assignment_test', $objectStore->key);
@@ -36,30 +34,30 @@ class ObjectStoreModelTest extends TestCase
     {
         // Create multiple records with the same key
         $key = 'test_key';
-        $first = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        $first = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $second = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $second = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
-        $third = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 3],
-            'created_at_timestamp' => 1700000200,
-        ]);
+        $third = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(3)
+            ->withTimestamp(1700000200)
+            ->create();
 
         // Create a record with a different key
-        ObjectStore::create([
-            'key' => 'different_key',
-            'value' => ['version' => 'other'],
-            'created_at_timestamp' => 1700000300,
-        ]);
+        ObjectStore::factory()
+            ->withKey('different_key')
+            ->withValue(['version' => 'other'])
+            ->withTimestamp(1700000300)
+            ->create();
 
         // Act
         $results = ObjectStore::latestByKey($key)->get();
@@ -76,17 +74,15 @@ class ObjectStoreModelTest extends TestCase
      */
     public function test_scope_latest_by_key_filters_by_key(): void
     {
-        ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['data' => 'value1'],
-            'created_at_timestamp' => time(),
-        ]);
+        ObjectStore::factory()
+            ->withKey('key1')
+            ->withValue(['data' => 'value1'])
+            ->create();
 
-        ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['data' => 'value2'],
-            'created_at_timestamp' => time(),
-        ]);
+        ObjectStore::factory()
+            ->withKey('key2')
+            ->withValue(['data' => 'value2'])
+            ->create();
 
         $results = ObjectStore::latestByKey('key1')->get();
 
@@ -100,30 +96,30 @@ class ObjectStoreModelTest extends TestCase
     public function test_scope_latest_objects_returns_latest_per_key(): void
     {
         // Create multiple versions for key1
-        ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key1')
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $latestKey1 = ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $latestKey1 = ObjectStore::factory()
+            ->withKey('key1')
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
         // Create multiple versions for key2
-        ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000050,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key2')
+            ->withVersion(1)
+            ->withTimestamp(1700000050)
+            ->create();
 
-        $latestKey2 = ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000150,
-        ]);
+        $latestKey2 = ObjectStore::factory()
+            ->withKey('key2')
+            ->withVersion(2)
+            ->withTimestamp(1700000150)
+            ->create();
 
         // Act
         $results = ObjectStore::latestObjects()->get();
@@ -141,17 +137,17 @@ class ObjectStoreModelTest extends TestCase
     {
         $key = 'test_key';
 
-        $record1 = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        $record1 = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $record2 = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $record2 = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
         $results = ObjectStore::byKeyAndTimestamp($key, 1700000100)->get();
 
@@ -167,17 +163,17 @@ class ObjectStoreModelTest extends TestCase
     {
         $key = 'test_key';
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000200,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000200)
+            ->create();
 
         // Query with timestamp that should only return the first record
         $results = ObjectStore::byKeyAndTimestamp($key, 1700000100)->get();
@@ -191,17 +187,17 @@ class ObjectStoreModelTest extends TestCase
      */
     public function test_scope_by_key_and_timestamp_filters_by_key(): void
     {
-        ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['data' => 'value1'],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key1')
+            ->withValue(['data' => 'value1'])
+            ->withTimestamp(1700000000)
+            ->create();
 
-        ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['data' => 'value2'],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key2')
+            ->withValue(['data' => 'value2'])
+            ->withTimestamp(1700000000)
+            ->create();
 
         $results = ObjectStore::byKeyAndTimestamp('key1', 1700000100)->get();
 
@@ -216,17 +212,17 @@ class ObjectStoreModelTest extends TestCase
     {
         $key = 'test_key';
 
-        $older = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        $older = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $newer = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $newer = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
         $results = ObjectStore::byKeyAndTimestamp($key, 1700000200)->get();
 
@@ -255,11 +251,10 @@ class ObjectStoreModelTest extends TestCase
             ],
         ];
 
-        $objectStore = ObjectStore::create([
-            'key' => 'complex_test',
-            'value' => $complexValue,
-            'created_at_timestamp' => time(),
-        ]);
+        $objectStore = ObjectStore::factory()
+            ->withKey('complex_test')
+            ->withValue($complexValue)
+            ->create();
 
         $this->assertEquals($complexValue, $objectStore->value);
         $this->assertEquals('John Doe', $objectStore->value['user']['name']);

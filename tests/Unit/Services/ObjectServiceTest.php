@@ -135,7 +135,7 @@ class ObjectServiceTest extends TestCase
         // Assert
         $this->assertInstanceOf(CursorPaginator::class, $result);
     }
-    
+
     public function test_latest_object_list_returns_latest_per_key(): void
     {
         // Arrange
