@@ -32,6 +32,6 @@ class ObjectService implements IObjectService
     public function latestObjectList(): CursorPaginator
     {
         return ObjectStore::latestObjects()
-            ->cursorPaginate(ObjectStore::PAGINATON_COUNT);
+            ->cursorPaginate(ObjectStore::PER_PAGE_COUNT);
     }
 }
