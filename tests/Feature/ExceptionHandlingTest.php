@@ -15,7 +15,7 @@ class ExceptionHandlingTest extends TestCase
      */
     public function test_model_not_found_exception_returns_consistent_format(): void
     {
-        // Act - Try to get a non-existent object
+        // Act
         $response = $this->getJson('/api/v1/object/non_existent_key');
 
         // Assert
@@ -45,7 +45,7 @@ class ExceptionHandlingTest extends TestCase
      */
     public function test_get_value_at_timestamp_not_found_returns_consistent_format(): void
     {
-        // Act - Try to get a non-existent object at a timestamp
+        // Act
         $response = $this->getJson('/api/v1/object/keys/non_existent?timestamp=1234567890');
 
         // Assert
@@ -62,9 +62,9 @@ class ExceptionHandlingTest extends TestCase
      */
     public function test_validation_exception_returns_consistent_format(): void
     {
-        // Act - Send invalid data (missing required fields)
+        // Act
         $response = $this->postJson('/api/v1/object', [
-            'key' => '', // Empty key should fail validation
+            'key' => '',
         ]);
 
         // Assert
@@ -91,7 +91,7 @@ class ExceptionHandlingTest extends TestCase
      */
     public function test_not_found_route_returns_consistent_format(): void
     {
-        // Act - Try to access a non-existent route
+        // Act
         $response = $this->getJson('/api/v1/non-existent-endpoint');
 
         // Assert
@@ -148,7 +148,7 @@ class ExceptionHandlingTest extends TestCase
         // Act
         $response = $this->getJson('/api/v1/object/non_existent');
 
-        // Assert - Should not contain file paths, line numbers, or stack traces
+        // Assert
         $response->assertJsonMissing(['file']);
         $response->assertJsonMissing(['line']);
         $response->assertJsonMissing(['trace']);

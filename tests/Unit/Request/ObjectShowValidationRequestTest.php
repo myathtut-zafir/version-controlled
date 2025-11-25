@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Request;
 
 use App\Http\Requests\ObjectShowValidationRequest;
 use Illuminate\Support\Facades\Validator;
