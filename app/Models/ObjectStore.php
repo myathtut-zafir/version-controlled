@@ -21,6 +21,8 @@ class ObjectStore extends Model
 
     public $timestamps = false;
 
+    const PAGINATON_COUNT = 20;
+
     /**
      * The attributes that are mass assignable.
      *
