@@ -96,17 +96,17 @@ class ObjectServiceTest extends TestCase
         // Arrange
         $key = 'test_key';
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $latest = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $latest = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
         // Act
         $result = $this->service->findLatestByKey($key);
@@ -123,11 +123,11 @@ class ObjectServiceTest extends TestCase
     public function test_latest_object_list_returns_cursor_paginator(): void
     {
         // Arrange
-        ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['data' => 'value1'],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key1')
+            ->withValue(['data' => 'value1'])
+            ->withTimestamp(1700000000)
+            ->create();
 
         // Act
         $result = $this->service->latestObjectList();
@@ -135,36 +135,33 @@ class ObjectServiceTest extends TestCase
         // Assert
         $this->assertInstanceOf(CursorPaginator::class, $result);
     }
-
-    /**
-     * Test latestObjectList returns only latest records per key.
-     */
+    
     public function test_latest_object_list_returns_latest_per_key(): void
     {
         // Arrange
-        ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key1')
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $latestKey1 = ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $latestKey1 = ObjectStore::factory()
+            ->withKey('key1')
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
-        ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000050,
-        ]);
+        ObjectStore::factory()
+            ->withKey('key2')
+            ->withVersion(1)
+            ->withTimestamp(1700000050)
+            ->create();
 
-        $latestKey2 = ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000150,
-        ]);
+        $latestKey2 = ObjectStore::factory()
+            ->withKey('key2')
+            ->withVersion(2)
+            ->withTimestamp(1700000150)
+            ->create();
 
         // Act
         $result = $this->service->latestObjectList();
@@ -185,17 +182,17 @@ class ObjectServiceTest extends TestCase
     public function test_latest_object_list_orders_by_timestamp_desc(): void
     {
         // Arrange
-        $older = ObjectStore::create([
-            'key' => 'key1',
-            'value' => ['data' => 'older'],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        $older = ObjectStore::factory()
+            ->withKey('key1')
+            ->withValue(['data' => 'older'])
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $newer = ObjectStore::create([
-            'key' => 'key2',
-            'value' => ['data' => 'newer'],
-            'created_at_timestamp' => 1700000200,
-        ]);
+        $newer = ObjectStore::factory()
+            ->withKey('key2')
+            ->withValue(['data' => 'newer'])
+            ->withTimestamp(1700000200)
+            ->create();
 
         // Act
         $result = $this->service->latestObjectList();
@@ -214,23 +211,23 @@ class ObjectServiceTest extends TestCase
         // Arrange
         $key = 'test_key';
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $targetRecord = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $targetRecord = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 3],
-            'created_at_timestamp' => 1700000200,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(3)
+            ->withTimestamp(1700000200)
+            ->create();
 
         $result = $this->service->getValueAt($key, 1700000150);
 
@@ -248,17 +245,17 @@ class ObjectServiceTest extends TestCase
         // Arrange
         $key = 'test_key';
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        $exactRecord = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $exactRecord = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->create();
 
         // Act
         $result = $this->service->getValueAt($key, 1700000100);
@@ -274,11 +271,11 @@ class ObjectServiceTest extends TestCase
     public function test_get_value_at_throws_exception_when_timestamp_too_early(): void
     {
         // Arrange
-        ObjectStore::create([
-            'key' => 'test_key',
-            'value' => ['data' => 'value'],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        ObjectStore::factory()
+            ->withKey('test_key')
+            ->withValue(['data' => 'value'])
+            ->withTimestamp(1700000100)
+            ->create();
 
         // Assert
         $this->expectException(ModelNotFoundException::class);
@@ -295,29 +292,29 @@ class ObjectServiceTest extends TestCase
         // Arrange
         $key = 'test_key';
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 1],
-            'created_at_timestamp' => 1700000000,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(1)
+            ->withTimestamp(1700000000)
+            ->create();
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 2],
-            'created_at_timestamp' => 1700000050,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000050)
+            ->create();
 
-        $mostRecent = ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 3],
-            'created_at_timestamp' => 1700000100,
-        ]);
+        $mostRecent = ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(3)
+            ->withTimestamp(1700000100)
+            ->create();
 
-        ObjectStore::create([
-            'key' => $key,
-            'value' => ['version' => 4],
-            'created_at_timestamp' => 1700000200,
-        ]);
+        ObjectStore::factory()
+            ->withKey($key)
+            ->withVersion(4)
+            ->withTimestamp(1700000200)
+            ->create();
 
         // Act
         $result = $this->service->getValueAt($key, 1700000150);
