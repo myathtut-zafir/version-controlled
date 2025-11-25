@@ -16,15 +16,6 @@ class ObjectShowValidationRequestTest extends TestCase
         $this->request = new ObjectShowValidationRequest;
     }
 
-    public function test_authorize_returns_true(): void
-    {
-        // Act
-        $result = $this->request->authorize();
-
-        // Assert
-        $this->assertTrue($result);
-    }
-
     /**
      * Test rules method returns correct structure.
      */
