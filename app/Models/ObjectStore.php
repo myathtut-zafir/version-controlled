@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $array)
  * @method static \Illuminate\Database\Eloquent\Builder latestByKey(string $key)
+ * @method static \Illuminate\Database\Eloquent\Builder latestObjects()
  */
 class ObjectStore extends Model
 {
@@ -19,6 +20,8 @@ class ObjectStore extends Model
     protected $table = 'object_stores';
 
     public $timestamps = false;
+
+    const PER_PAGE_COUNT = 20;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +53,18 @@ class ObjectStore extends Model
     public function scopeLatestByKey(Builder $query, string $key): Builder
     {
         return $query->where('key', $key)->orderByDesc('id');
+    }
+
+    public function scopeLatestObjects(Builder $query): Builder
+    {
+        $latestIds = static::query()
+            ->selectRaw('MAX(id) as id')
+            ->groupBy('key')
+            ->pluck('id');
+
+        return $query
+            ->whereIn('id', $latestIds)
+            ->orderByDesc('created_at_timestamp')
+            ->orderByDesc('id');
     }
 }
