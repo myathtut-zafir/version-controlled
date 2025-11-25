@@ -9,14 +9,10 @@ use App\Http\Requests\ObjectShowValidationRequest;
 use App\Http\Requests\ObjectStoreValidationRequest;
 use App\Http\Resources\ObjectListCollection;
 use App\Http\Resources\ObjectStoreResource;
-use App\Models\ObjectStore;
-use Illuminate\Http\Request;
 
 class ObjectController extends Controller
 {
-    public function __construct(private readonly IObjectService $objectService)
-    {
-    }
+    public function __construct(private readonly IObjectService $objectService) {}
 
     public function index()
     {
@@ -56,7 +52,7 @@ class ObjectController extends Controller
     public function getValueAtTimestamp(GetValueAtTimestampRequest $request)
     {
 
-        $object = $this->objectService->getValueAt($request->validated()['key'],$request->validated()['timestamp']);
+        $object = $this->objectService->getValueAt($request->validated()['key'], $request->validated()['timestamp']);
 
         return response()->json([
             'success' => true,

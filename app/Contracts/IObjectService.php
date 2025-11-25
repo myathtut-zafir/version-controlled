@@ -12,5 +12,6 @@ interface IObjectService
     public function storeObject(array $data): ObjectStore;
 
     public function findLatestByKey(string $key): ObjectStore;
-    public function getValueAt(string $key,int $timestamp): ObjectStore;
+
+    public function getValueAt(string $key, int $timestamp): ObjectStore;
 }
