@@ -22,7 +22,7 @@ class ObjectControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->mockService = Mockery::mock(IObjectService::class);
         $this->controller = new ObjectController($this->mockService);
     }
@@ -76,12 +76,12 @@ class ObjectControllerTest extends TestCase
             'value' => ['foo' => 'bar'],
         ];
 
-        $mockObjectStore = new ObjectStore([
-            'key' => 'test_key',
-            'value' => ['foo' => 'bar'],
-        ]);
-        $mockObjectStore->id = 1;
-        $mockObjectStore->created_at_timestamp = 1700000000;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(1)
+            ->withKey('test_key')
+            ->withValue(['foo' => 'bar'])
+            ->withTimestamp(1700000000)
+            ->make();
 
         $this->mockService
             ->shouldReceive('storeObject')
@@ -117,12 +117,12 @@ class ObjectControllerTest extends TestCase
             'value' => ['nested' => 'data'],
         ];
 
-        $mockObjectStore = new ObjectStore([
-            'key' => 'resource_test',
-            'value' => ['nested' => 'data'],
-            'created_at_timestamp' => 1700000000,
-        ]);
-        $mockObjectStore->id = 3;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(3)
+            ->withKey('resource_test')
+            ->withValue(['nested' => 'data'])
+            ->withTimestamp(1700000000)
+            ->make();
 
         $this->mockService
             ->shouldReceive('storeObject')
@@ -151,12 +151,12 @@ class ObjectControllerTest extends TestCase
         $key = 'test_key';
         $requestData = ['key' => $key];
 
-        $mockObjectStore = new ObjectStore([
-            'key' => $key,
-            'value' => ['version' => 2],
-        ]);
-        $mockObjectStore->id = 5;
-        $mockObjectStore->created_at_timestamp = 1700000100;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(5)
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->make();
 
         $this->mockService
             ->shouldReceive('findLatestByKey')
@@ -189,12 +189,12 @@ class ObjectControllerTest extends TestCase
     public function test_show_returns_correct_response_structure(): void
     {
         // Arrange
-        $mockObjectStore = new ObjectStore([
-            'key' => 'test_key',
-            'value' => ['data' => 'value'],
-        ]);
-        $mockObjectStore->id = 1;
-        $mockObjectStore->created_at_timestamp = 1700000000;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(1)
+            ->withKey('test_key')
+            ->withValue(['data' => 'value'])
+            ->withTimestamp(1700000000)
+            ->make();
 
         $this->mockService
             ->shouldReceive('findLatestByKey')
@@ -229,12 +229,12 @@ class ObjectControllerTest extends TestCase
             'timestamp' => $timestamp,
         ];
 
-        $mockObjectStore = new ObjectStore([
-            'key' => $key,
-            'value' => ['version' => 2],
-        ]);
-        $mockObjectStore->id = 2;
-        $mockObjectStore->created_at_timestamp = 1700000100;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(2)
+            ->withKey($key)
+            ->withVersion(2)
+            ->withTimestamp(1700000100)
+            ->make();
 
         $this->mockService
             ->shouldReceive('getValueAt')
@@ -266,12 +266,12 @@ class ObjectControllerTest extends TestCase
     public function test_get_value_at_timestamp_returns_correct_response_structure(): void
     {
         // Arrange
-        $mockObjectStore = new ObjectStore([
-            'key' => 'test_key',
-            'value' => ['historical' => 'data'],
-        ]);
-        $mockObjectStore->id = 10;
-        $mockObjectStore->created_at_timestamp = 1700000000;
+        $mockObjectStore = ObjectStore::factory()
+            ->withId(10)
+            ->withKey('test_key')
+            ->withValue(['historical' => 'data'])
+            ->withTimestamp(1700000000)
+            ->make();
 
         $this->mockService
             ->shouldReceive('getValueAt')
