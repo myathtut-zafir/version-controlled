@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Models\ObjectStore;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+
 /**
  * Test the ModelNotFoundException and validation returns consistent error format.
  */
 class ExceptionHandlingTest extends TestCase
 {
     use RefreshDatabase;
-
 
     public function test_model_not_found_exception_returns_consistent_format(): void
     {
@@ -39,6 +39,7 @@ class ExceptionHandlingTest extends TestCase
             ],
         ]);
     }
+
     public function test_get_value_at_timestamp_not_found_returns_consistent_format(): void
     {
         // Act
