@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://version-controlled.test";
+        var tryItOutBaseUrl = "https://version-controlled-production.up.railway.app";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -98,7 +98,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://version-controlled.test</code>
+    <strong>Base URL</strong>: <code>https://version-controlled-production.up.railway.app</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -124,14 +124,14 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://version-controlled.test/api/v1/objects" \
+    --get "https://version-controlled-production.up.railway.app/api/v1/objects" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://version-controlled.test/api/v1/objects"
+    "https://version-controlled-production.up.railway.app/api/v1/objects"
 );
 
 const headers = {
@@ -148,7 +148,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-objects">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (404):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -160,93 +160,11 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;message&quot;: &quot;Resource retrieved successfully&quot;,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 15,
-            &quot;key&quot;: &quot;my_key&quot;,
-            &quot;value&quot;: &quot;\&quot;hello\&quot;:1233&quot;,
-            &quot;created_at_timestamp&quot;: 1764126396
-        },
-        {
-            &quot;id&quot;: 13,
-            &quot;key&quot;: &quot;user_settings_001 🍾&quot;,
-            &quot;value&quot;: {
-                &quot;tags&quot;: [
-                    &quot;verified&quot;,
-                    &quot;pro_user&quot;
-                ],
-                &quot;theme&quot;: &quot;dark&quot;,
-                &quot;metadata&quot;: {
-                    &quot;device&quot;: &quot;mobile&quot;,
-                    &quot;last_login_ip&quot;: &quot;192.168.1.1&quot;
-                },
-                &quot;notifications_enabled&quot;: true
-            },
-            &quot;created_at_timestamp&quot;: 1764125838
-        },
-        {
-            &quot;id&quot;: 12,
-            &quot;key&quot;: &quot;user_settings_001&quot;,
-            &quot;value&quot;: {
-                &quot;tags&quot;: [
-                    &quot;verified&quot;,
-                    &quot;pro_user&quot;
-                ],
-                &quot;theme&quot;: &quot;dark&quot;,
-                &quot;metadata&quot;: {
-                    &quot;device&quot;: &quot;mobile&quot;,
-                    &quot;last_login_ip&quot;: &quot;192.168.1.1&quot;
-                },
-                &quot;notifications_enabled&quot;: true
-            },
-            &quot;created_at_timestamp&quot;: 1763877753
-        },
-        {
-            &quot;id&quot;: 10,
-            &quot;key&quot;: &quot;hello 🍾&quot;,
-            &quot;value&quot;: {
-                &quot;tags&quot;: [
-                    &quot;verified&quot;,
-                    &quot;pro_user&quot;
-                ],
-                &quot;theme&quot;: &quot;dark&quot;,
-                &quot;metadata&quot;: {
-                    &quot;device&quot;: &quot;mobile&quot;,
-                    &quot;last_login_ip&quot;: &quot;192.168.1.1&quot;
-                },
-                &quot;notifications_enabled&quot;: true
-            },
-            &quot;created_at_timestamp&quot;: 1763877725
-        },
-        {
-            &quot;id&quot;: 8,
-            &quot;key&quot;: &quot;d&quot;,
-            &quot;value&quot;: {
-                &quot;tags&quot;: [
-                    &quot;verified&quot;,
-                    &quot;pro_user&quot;
-                ],
-                &quot;theme&quot;: &quot;dark&quot;,
-                &quot;metadata&quot;: {
-                    &quot;device&quot;: &quot;mobile&quot;,
-                    &quot;last_login_ip&quot;: &quot;192.168.1.1&quot;
-                },
-                &quot;notifications_enabled&quot;: true
-            },
-            &quot;created_at_timestamp&quot;: 1763877510
-        }
-    ],
-    &quot;links&quot;: {
-        &quot;prev&quot;: null,
-        &quot;next&quot;: null
-    },
-    &quot;meta&quot;: {
-        &quot;path&quot;: &quot;http://version-controlled.test/api/v1/objects&quot;,
-        &quot;per_page&quot;: 20,
-        &quot;next_cursor&quot;: null,
-        &quot;prev_cursor&quot;: null
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Endpoint not found&quot;,
+    &quot;error&quot;: {
+        &quot;type&quot;: &quot;NotFoundHttpException&quot;,
+        &quot;details&quot;: &quot;The requested endpoint does not exist&quot;
     }
 }</code>
  </pre>
@@ -379,7 +297,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://version-controlled.test/api/v1/objects" \
+    "https://version-controlled-production.up.railway.app/api/v1/objects" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -393,7 +311,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://version-controlled.test/api/v1/objects"
+    "https://version-controlled-production.up.railway.app/api/v1/objects"
 );
 
 const headers = {
@@ -547,7 +465,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://version-controlled.test/api/v1/objects/my_key" \
+    --get "https://version-controlled-production.up.railway.app/api/v1/objects/my_key" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -558,7 +476,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://version-controlled.test/api/v1/objects/my_key"
+    "https://version-controlled-production.up.railway.app/api/v1/objects/my_key"
 );
 
 const headers = {
@@ -710,7 +628,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://version-controlled.test/api/v1/objects/keys/my_key?timestamp=1700000000" \
+    --get "https://version-controlled-production.up.railway.app/api/v1/objects/keys/my_key?timestamp=1700000000" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -722,7 +640,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://version-controlled.test/api/v1/objects/keys/my_key"
+    "https://version-controlled-production.up.railway.app/api/v1/objects/keys/my_key"
 );
 
 const params = {
