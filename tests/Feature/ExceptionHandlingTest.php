@@ -16,7 +16,7 @@ class ExceptionHandlingTest extends TestCase
     public function test_model_not_found_exception_returns_consistent_format(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/non_existent_key');
+        $response = $this->getJson('/api/v1/objects/non_existent_key');
 
         // Assert
         $response->assertStatus(404);
@@ -46,7 +46,7 @@ class ExceptionHandlingTest extends TestCase
     public function test_get_value_at_timestamp_not_found_returns_consistent_format(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/keys/non_existent?timestamp=1234567890');
+        $response = $this->getJson('/api/v1/objects/keys/non_existent?timestamp=1234567890');
 
         // Assert
         $response->assertStatus(404);
@@ -63,7 +63,7 @@ class ExceptionHandlingTest extends TestCase
     public function test_validation_exception_returns_consistent_format(): void
     {
         // Act
-        $response = $this->postJson('/api/v1/object', [
+        $response = $this->postJson('/api/v1/objects', [
             'key' => '',
         ]);
 
@@ -119,7 +119,7 @@ class ExceptionHandlingTest extends TestCase
         ]);
 
         // Act - Get the object
-        $response = $this->getJson('/api/v1/object/test_key');
+        $response = $this->getJson('/api/v1/objects/test_key');
 
         // Assert
         $response->assertStatus(200);
@@ -146,7 +146,7 @@ class ExceptionHandlingTest extends TestCase
     public function test_error_responses_do_not_expose_sensitive_info(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/non_existent');
+        $response = $this->getJson('/api/v1/objects/non_existent');
 
         // Assert
         $response->assertJsonMissing(['file']);
