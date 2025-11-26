@@ -6,17 +6,17 @@ use App\Models\ObjectStore;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Test the ModelNotFoundException and validation returns consistent error format.
+ */
 class ExceptionHandlingTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test that ModelNotFoundException returns consistent error format.
-     */
     public function test_model_not_found_exception_returns_consistent_format(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/non_existent_key');
+        $response = $this->getJson('/api/v1/objects/non_existent_key');
 
         // Assert
         $response->assertStatus(404);
@@ -40,13 +40,10 @@ class ExceptionHandlingTest extends TestCase
         ]);
     }
 
-    /**
-     * Test that getValueAtTimestamp endpoint returns consistent error for non-existent resource.
-     */
     public function test_get_value_at_timestamp_not_found_returns_consistent_format(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/keys/non_existent?timestamp=1234567890');
+        $response = $this->getJson('/api/v1/objects/keys/non_existent?timestamp=1234567890');
 
         // Assert
         $response->assertStatus(404);
@@ -57,13 +54,10 @@ class ExceptionHandlingTest extends TestCase
         $response->assertJsonPath('error.type', 'ModelNotFoundException');
     }
 
-    /**
-     * Test that validation errors return consistent format.
-     */
     public function test_validation_exception_returns_consistent_format(): void
     {
         // Act
-        $response = $this->postJson('/api/v1/object', [
+        $response = $this->postJson('/api/v1/objects', [
             'key' => '',
         ]);
 
@@ -86,9 +80,6 @@ class ExceptionHandlingTest extends TestCase
         $response->assertJsonPath('error.type', 'ValidationException');
     }
 
-    /**
-     * Test that non-existent routes return consistent error format.
-     */
     public function test_not_found_route_returns_consistent_format(): void
     {
         // Act
@@ -106,20 +97,17 @@ class ExceptionHandlingTest extends TestCase
         ]);
     }
 
-    /**
-     * Test that successful requests still return success: true format.
-     */
     public function test_successful_request_returns_success_format(): void
     {
-        // Arrange - Create a test object
+        // Arrange
         $object = ObjectStore::create([
             'key' => 'test_key',
             'value' => ['foo' => 'bar'],
             'created_at_timestamp' => now()->timestamp,
         ]);
 
-        // Act - Get the object
-        $response = $this->getJson('/api/v1/object/test_key');
+        // Act
+        $response = $this->getJson('/api/v1/objects/test_key');
 
         // Assert
         $response->assertStatus(200);
@@ -140,13 +128,10 @@ class ExceptionHandlingTest extends TestCase
         ]);
     }
 
-    /**
-     * Test that error responses do not expose sensitive information.
-     */
     public function test_error_responses_do_not_expose_sensitive_info(): void
     {
         // Act
-        $response = $this->getJson('/api/v1/object/non_existent');
+        $response = $this->getJson('/api/v1/objects/non_existent');
 
         // Assert
         $response->assertJsonMissing(['file']);

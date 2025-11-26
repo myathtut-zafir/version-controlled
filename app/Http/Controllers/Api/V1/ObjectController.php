@@ -9,9 +9,12 @@ use App\Http\Requests\ObjectShowValidationRequest;
 use App\Http\Requests\ObjectStoreValidationRequest;
 use App\Http\Resources\ObjectListCollection;
 use App\Http\Resources\ObjectStoreResource;
+use App\Traits\ApiResponseTrait;
 
 class ObjectController extends Controller
 {
+    use ApiResponseTrait;
+
     public function __construct(private readonly IObjectService $objectService) {}
 
     public function index()
@@ -19,22 +22,14 @@ class ObjectController extends Controller
         $objects = $this->objectService->latestObjectList();
         $collection = new ObjectListCollection($objects);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Resource retrieved successfully',
-            ...$collection->toArray(request()),
-        ]);
+        return $this->resourceCollectionResponse($collection);
     }
 
     public function store(ObjectStoreValidationRequest $request)
     {
         $object = $this->objectService->storeObject($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Resource created successfully',
-            'data' => new ObjectStoreResource($object),
-        ], 201);
+        return $this->successResponse(new ObjectStoreResource($object), 'Resource created successfully', 201);
 
     }
 
@@ -42,11 +37,7 @@ class ObjectController extends Controller
     {
         $object = $this->objectService->findLatestByKey($request->validated()['key']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Resource retrieved successfully',
-            'data' => new ObjectStoreResource($object),
-        ]);
+        return $this->successResponse(new ObjectStoreResource($object));
     }
 
     public function getValueAtTimestamp(GetValueAtTimestampRequest $request)
@@ -54,10 +45,6 @@ class ObjectController extends Controller
 
         $object = $this->objectService->getValueAt($request->validated()['key'], $request->validated()['timestamp']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Resource retrieved successfully',
-            'data' => new ObjectStoreResource($object),
-        ]);
+        return $this->successResponse(new ObjectStoreResource($object));
     }
 }
