@@ -1,0 +1,347 @@
+name: Objects
+description: |-
+
+  APIs for managing key-value objects.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/objects
+    metadata:
+      custom: []
+      groupName: Objects
+      groupDescription: |-
+
+        APIs for managing key-value objects.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List Objects'
+      description: 'Display a listing of the latest version of all objects.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Resource retrieved successfully","data":[{"id":13,"key":"user_settings_001 \ud83c\udf7e","value":{"tags":["verified","pro_user"],"theme":"dark","metadata":{"device":"mobile","last_login_ip":"192.168.1.1"},"notifications_enabled":true},"created_at_timestamp":1764125838},{"id":12,"key":"user_settings_001","value":{"tags":["verified","pro_user"],"theme":"dark","metadata":{"device":"mobile","last_login_ip":"192.168.1.1"},"notifications_enabled":true},"created_at_timestamp":1763877753},{"id":10,"key":"hello \ud83c\udf7e","value":{"tags":["verified","pro_user"],"theme":"dark","metadata":{"device":"mobile","last_login_ip":"192.168.1.1"},"notifications_enabled":true},"created_at_timestamp":1763877725},{"id":8,"key":"d","value":{"tags":["verified","pro_user"],"theme":"dark","metadata":{"device":"mobile","last_login_ip":"192.168.1.1"},"notifications_enabled":true},"created_at_timestamp":1763877510}],"links":{"prev":null,"next":null},"meta":{"path":"http:\/\/version-controlled.test\/api\/v1\/objects","per_page":20,"next_cursor":null,"prev_cursor":null}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      success:
+        custom: []
+        name: success
+        description: 'The success status of the response.'
+        required: false
+        example: null
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      message:
+        custom: []
+        name: message
+        description: 'The message of the response.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      data:
+        custom: []
+        name: data
+        description: 'The list of objects.'
+        required: false
+        example: null
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      links:
+        custom: []
+        name: links
+        description: 'The pagination links.'
+        required: false
+        example: null
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meta:
+        custom: []
+        name: meta
+        description: 'The pagination meta data.'
+        required: false
+        example: null
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/objects
+    metadata:
+      custom: []
+      groupName: Objects
+      groupDescription: |-
+
+        APIs for managing key-value objects.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store Object'
+      description: 'Store a newly created object in storage.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      key:
+        custom: []
+        name: key
+        description: 'The key of the object.'
+        required: true
+        example: my_key
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      value:
+        custom: []
+        name: value
+        description: 'The value of the object (JSON).'
+        required: true
+        example:
+          foo: bar
+        type: object
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      key: my_key
+      value:
+        foo: bar
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: |-
+          {
+           "success": true,
+           "message": "Resource created successfully",
+           "data": {
+               "id": 1,
+               "key": "my_key",
+               "value": {"foo": "bar"},
+               "created_at_timestamp": 1700000000
+           }
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/objects/{key}'
+    metadata:
+      custom: []
+      groupName: Objects
+      groupDescription: |-
+
+        APIs for managing key-value objects.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show Object'
+      description: 'Display the specified object.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      key:
+        custom: []
+        name: key
+        description: 'The key of the object.'
+        required: true
+        example: my_key
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      key: my_key
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      key:
+        custom: []
+        name: key
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      key: b
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "message": "Resource retrieved successfully",
+           "data": {
+               "id": 1,
+               "key": "my_key",
+               "value": {"foo": "bar"},
+               "created_at_timestamp": 1700000000
+           }
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/objects/keys/{key}'
+    metadata:
+      custom: []
+      groupName: Objects
+      groupDescription: |-
+
+        APIs for managing key-value objects.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get Value at Timestamp'
+      description: 'Display the value of the object at a specific timestamp.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      key:
+        custom: []
+        name: key
+        description: 'The key of the object.'
+        required: true
+        example: my_key
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      key: my_key
+    queryParameters:
+      timestamp:
+        custom: []
+        name: timestamp
+        description: 'The timestamp to check.'
+        required: true
+        example: 1700000000
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      timestamp: 1700000000
+    bodyParameters:
+      key:
+        custom: []
+        name: key
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      timestamp:
+        custom: []
+        name: timestamp
+        description: 'Must be at least 1.'
+        required: true
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      key: b
+      timestamp: 22
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "message": "Resource retrieved successfully",
+           "data": {
+               "id": 1,
+               "key": "my_key",
+               "value": {"foo": "bar"},
+               "created_at_timestamp": 1700000000
+           }
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
