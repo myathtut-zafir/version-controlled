@@ -45,12 +45,12 @@
     </span>
 </a>
 <div class="tocify-wrapper">
-    
+
             <div class="lang-selector">
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
-    
+
     <div class="search">
         <input type="text" class="search" id="input-search" placeholder="Search">
     </div>
@@ -105,7 +105,7 @@
 &lt;aside&gt;As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).&lt;/aside&gt;</code></pre>
 
-        
+
 
         <h1 id="objects">Objects</h1>
 
@@ -127,6 +127,8 @@ You can switch the language used with the tabs at the top right (or from the nav
     --get "https://version-controlled-production.up.railway.app/api/v1/objects" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
+
+    
 
 
 <div class="javascript-example">
@@ -811,9 +813,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-            
 
-        
+
+
     </div>
     <div class="dark-box">
                     <div class="lang-selector">
