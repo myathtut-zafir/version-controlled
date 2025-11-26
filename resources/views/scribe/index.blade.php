@@ -128,7 +128,7 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
-    
+
 
 
 <div class="javascript-example">
