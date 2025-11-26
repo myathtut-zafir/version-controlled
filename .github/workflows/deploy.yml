@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-  # --- JOB 1: TESTS ---
   test:
     runs-on: ubuntu-latest
     steps:
@@ -35,9 +34,8 @@ jobs:
       - name: Run PHPUnit tests
         run: php artisan test --coverage-html coverage-report --min=60
 
-  # --- JOB 2: DEPLOY ---
   deploy:
-    # It forces deploy to wait for 'test' to finish.
+    # wait for test to finish.
     needs: test
 
     runs-on: ubuntu-latest
