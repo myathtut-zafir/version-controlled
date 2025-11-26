@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # --- JOB 1: TESTS ---
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: xdebug
+
+      # 3. Install Dependencies
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # 4. Prepare Laravel Environment
+      - name: Copy .env
+        run: cp .env.testing.example .env
+      - name: Generate Key
+        run: php artisan key:generate
+
+      # 5. Run Your Tests
+      - name: Run PHPUnit tests
+        run: php artisan test --coverage-html coverage-report --min=60
+
+  # --- JOB 2: DEPLOY ---
+  deploy:
+    # It forces deploy to wait for 'test' to finish.
+    needs: test
+
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy
+        run: railway up --service "demo-laravel" --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
