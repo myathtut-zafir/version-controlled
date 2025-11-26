@@ -99,6 +99,7 @@ class ObjectController extends Controller
      * Display the value of the object at a specific timestamp.
      *
      * @urlParam key string required The key of the object. Example: my_key
+     *
      * @queryParam timestamp integer required The timestamp to check. Example: 1700000000
      *
      * @response {

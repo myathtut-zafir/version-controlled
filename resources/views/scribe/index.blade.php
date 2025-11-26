@@ -61,11 +61,6 @@
                     <a href="#introduction">Introduction</a>
                 </li>
                             </ul>
-                    <ul id="tocify-header-authenticating-requests" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="authenticating-requests">
-                    <a href="#authenticating-requests">Authenticating requests</a>
-                </li>
-                            </ul>
                     <ul id="tocify-header-objects" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="objects">
                     <a href="#objects">Objects</a>
@@ -110,8 +105,7 @@
 &lt;aside&gt;As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).&lt;/aside&gt;</code></pre>
 
-        <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is not authenticated.</p>
+        
 
         <h1 id="objects">Objects</h1>
 
@@ -169,6 +163,12 @@ access-control-allow-origin: *
     &quot;success&quot;: true,
     &quot;message&quot;: &quot;Resource retrieved successfully&quot;,
     &quot;data&quot;: [
+        {
+            &quot;id&quot;: 15,
+            &quot;key&quot;: &quot;my_key&quot;,
+            &quot;value&quot;: &quot;\&quot;hello\&quot;:1233&quot;,
+            &quot;created_at_timestamp&quot;: 1764126396
+        },
         {
             &quot;id&quot;: 13,
             &quot;key&quot;: &quot;user_settings_001 🍾&quot;,
