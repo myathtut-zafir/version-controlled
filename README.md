@@ -302,7 +302,7 @@ tests/
     └── Services/
 ```
 ---
-### Infrastructure Choices:
+### Infrastructure Choices
 **PostgreSQL 17**
 
 Chosen for its robust JSON handling capabilities which fit the "Key-Value store" requirement perfectly.
@@ -319,6 +319,48 @@ Railway - Chosen for its seamless integration with GitHub and its usage of Nixpa
 #### **CI/CD**
 GitHub Actions - Used to ensure all tests pass before a deployment is triggered.
 
+---
+## Branching Strategy
+
+To ensure code stability and maintain a high-quality codebase, this project follows a strict **Feature Branch Workflow**:
+
+1.  **Protected Main Branch:** * The `main` branch is treated as the production-ready state.
+    * Direct pushes to `main` are **restricted**.
+
+2.  **Pull Request (PR) Process:**
+    * All development happens on isolated feature branches (e.g., `feature/add-time-travel`).
+    * Changes must be submitted via a **Pull Request (PR)** to the `main` branch.
+
+3.  **CI/CD Integration:**
+    * **On PR Creation:** The GitHub Actions pipeline is automatically triggered to run tests and static analysis on the feature branch.
+    * **Merge Requirements:** The PR can only be merged if:
+        * ✅ All CI/CD checks (tests & build) pass.
+    * **On Merge:** Once merged to `main`, the pipeline runs again to generate coverage reports and prepare for deployment.
+
+---
+## 🧪 CI/CD & Automated Testing
+
+This project adheres to strict DevOps practices using **GitHub Actions**. The pipeline is configured to ensure production quality on every update.
+
+### Pipeline Workflow for `main` branch
+The CI/CD pipeline monitors the `main` branch and triggers the following workflow on every push:
+
+1.  **Build Environment:** Sets up PHP 8.2 and env setup.
+2.  **Install Dependencies:** Runs `composer install`.
+3.   **Automated Testing:** Executes the full PHPUnit test suite (Feature & Unit tests). 
+4.  **Code Coverage Reporting:** Generates a code coverage report during the test phase on pipeline.
+5. **Deployment (Ready):** If all tests pass, the pipeline is ready to trigger deployment scripts to the production server.
+
+### Pipeline Workflow for feature branch(PR)
+The CI/CD pipeline monitors the **Pull request** to `main` branch and triggers the following workflow on every push:
+
+1.  **Build Environment:** Sets up PHP 8.2 and env setup.
+2.  **Install Dependencies:** Runs `composer install`.
+3.  **Static Analysis:** Checks code style and formatting(`pint`).
+4.  **Automated Testing:** Executes the full PHPUnit test suite (Feature & Unit tests).
+5.  **Code Coverage Reporting:** Generates a code coverage report during the test phase.
+6.  **Deployment (Ready):** If all tests pass, the pipeline is ready to merge to `main`.
+---
 ## 🔮 Future Improvements
 - Cache: For this assignment, I hit the database directly for simplicity. In a high-traffic production environment, I would implement `Redis` Caching specifically for the 'Get Latest Value' endpoint.
 - Authentication: Adding API Token or Sanctum authentication for security.
