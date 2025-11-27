@@ -2,8 +2,9 @@
 
 A RESTful API that implements a time-traveling key-value store. It allows storing values, retrieving the latest version, and querying the state of a key at any specific point in time.
 
-![Tests](https://github.com/myathtut-zafir/version-controlled/actions/workflows/phpunit.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/coverage-60%25+-brightgreen)
+[![PHPUnit Tests](https://github.com/myathtut-zafir/version-controlled/actions/workflows/phpunit.yml/badge.svg)](https://github.com/myathtut-zafir/version-controlled/actions/workflows/phpunit.yml)
+[![Laravel Pint](https://github.com/myathtut-zafir/version-controlled/actions/workflows/pint.yml/badge.svg)](https://github.com/myathtut-zafir/version-controlled/actions/workflows/pint.yml)
+![Code Coverage](https://img.shields.io/badge/coverage-96.5%25-brightgreen)
 ![PHP Version](https://img.shields.io/badge/PHP-8.2-blue)
 ![Laravel](https://img.shields.io/badge/Laravel-12.0-red)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
