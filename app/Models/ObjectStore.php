@@ -56,7 +56,9 @@ class ObjectStore extends Model
      */
     public function scopeLatestByKey(Builder $query, string $key): Builder
     {
-        return $query->where('key', $key)->orderByDesc('id');
+        return $query->where('key', $key)
+            ->orderByDesc('created_at_timestamp')
+            ->orderByDesc('id');
     }
 
     public function scopeLatestObjects(Builder $query): Builder
