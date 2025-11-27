@@ -306,10 +306,6 @@ tests/
 **PostgreSQL 17**
 
 Chosen for its robust JSON handling capabilities which fit the "Key-Value store" requirement perfectly.
-### Infrastructure Choices:
-#### **Why PostgreSQL 17?**
-
-Chosen for its robust JSON handling capabilities which fit the "Key-Value store" requirement perfectly.
 -  **JSONB Support**: First-class JSON support with indexing.
 -  **Performance**: Superior indexing for composite queries.
 -  **Modern Features**: Advanced query optimization.
