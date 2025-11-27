@@ -9,12 +9,19 @@ A RESTful API that implements a time-traveling key-value store. It allows storin
 ![Laravel](https://img.shields.io/badge/Laravel-12.0-red)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
 
+## Production urls
+```bash
+production base url: https://version-controlled-production.up.railway.app
+production api documentation url: https://version-controlled-production.up.railway.app/docs
+``` 
 ## 🛠 Tech Stack
 - Framework: Laravel 12
 - php: 8.2
-- Database: PostgreSQL 17 (Leveraging JSONB and Composite Indexes)
+- Database: PostgreSQL 17
 - Environment: Docker
 - Testing: PHPUnit (Feature & Unit Tests)
+- ci/cd: GitHub actions
+- deployment: https://railway.com
 
 ## 🚀 Setup & Installation
 
@@ -65,7 +72,7 @@ This project is containerized using Docker. The purpose is for local machine.
     - Database: `localhost:5436` (user: `laravel`, password: `secret`, database: `laravel`)
 
 ## 📚 API Documentation
-
+Added the postman collection json file. name is `Version-Controlled.postman_collection.json` 
 ### Base URL
 ```
 http://localhost:8000/api/v1
@@ -89,22 +96,22 @@ Content-Type: application/json
 **Request Body**:
 ```json
 {
-  "key": "my_key",
-  "value": {"foo": "bar"}
+    "key": "my_key",
+    "value": {"foo": "bar"}
 }
 ```
 
 **Response** (201 Created):
 ```json
 {
-  "success": true,
-  "message": "Resource created successfully",
-  "data": {
-    "id": 1,
-    "key": "my_key",
-    "value": {"foo": "bar"},
-    "created_at_timestamp": 1700000000
-  }
+    "success": true,
+    "message": "Resource created successfully",
+    "data": {
+        "id": 1,
+        "key": "my_key",
+        "value": {"foo": "bar"},
+        "created_at_timestamp": 1700000000
+    }
 }
 ```
 
@@ -126,14 +133,14 @@ GET /objects/my_key
 **Response** (200 OK):
 ```json
 {
-  "success": true,
-  "message": "Resource retrieved successfully",
-  "data": {
-    "id": 1,
-    "key": "my_key",
-    "value": {"foo": "bar"},
-    "created_at_timestamp": 1700000000
-  }
+    "success": true,
+    "message": "Resource retrieved successfully",
+    "data": {
+        "id": 1,
+        "key": "my_key",
+        "value": {"foo": "bar"},
+        "created_at_timestamp": 1700000000
+    }
 }
 ```
 ---
@@ -150,14 +157,14 @@ GET /objects/keys/my_key?timestamp=1699999999
 **Response** (200 OK):
 ```json
 {
-  "success": true,
-  "message": "Resource retrieved successfully",
-  "data": {
-    "id": 1,
-    "key": "my_key",
-    "value": {"foo": "bar"},
-    "created_at_timestamp": 1699999000
-  }
+    "success": true,
+    "message": "Resource retrieved successfully",
+    "data": {
+        "id": 1,
+        "key": "my_key",
+        "value": {"foo": "bar"},
+        "created_at_timestamp": 1699999000
+    }
 }
 ```
 
@@ -175,28 +182,28 @@ GET /objects
 **Response** (200 OK):
 ```json
 {
-  "success": true,
-  "message": "Resource retrieved successfully",
-  "data": [
-    {
-      "id": 1,
-      "key": "my_key",
-      "value": {"foo": "bar"},
-      "created_at_timestamp": 1700000000
+    "success": true,
+    "message": "Resource retrieved successfully",
+    "data": [
+        {
+            "id": 1,
+            "key": "my_key",
+            "value": {"foo": "bar"},
+            "created_at_timestamp": 1700000000
+        }
+    ],
+    "links": {
+        "first": "http://localhost:8000/api/v1/objects?cursor=...",
+        "last": null,
+        "prev": null,
+        "next": "http://localhost:8000/api/v1/objects?cursor=..."
+    },
+    "meta": {
+        "path": "http://localhost:8000/api/v1/objects",
+        "per_page": 15,
+        "next_cursor": "...",
+        "prev_cursor": null
     }
-  ],
-  "links": {
-    "first": "http://localhost:8000/api/v1/objects?cursor=...",
-    "last": null,
-    "prev": null,
-    "next": "http://localhost:8000/api/v1/objects?cursor=..."
-  },
-  "meta": {
-    "path": "http://localhost:8000/api/v1/objects",
-    "per_page": 15,
-    "next_cursor": "...",
-    "prev_cursor": null
-  }
 }
 ```
 ### Error Responses
@@ -237,11 +244,11 @@ All errors follow this format:
 ### Database Schema
 ```sql
 CREATE TABLE object_stores (
-    id BIGSERIAL PRIMARY KEY,
-    key VARCHAR(255) NOT NULL,
-    value JSONB NOT NULL,
-    created_at_timestamp BIGINT NOT NULL COMMENT 'UNIX timestamp (UTC)',
-    INDEX idx_key_created_at_timestamp (key, created_at_timestamp)
+                               id BIGSERIAL PRIMARY KEY,
+                               key VARCHAR(255) NOT NULL,
+                               value JSONB NOT NULL,
+                               created_at_timestamp BIGINT NOT NULL COMMENT 'UNIX timestamp (UTC)',
+                               INDEX idx_key_created_at_timestamp (key, created_at_timestamp)
 );
 ```
 **Key Design Decisions**:
