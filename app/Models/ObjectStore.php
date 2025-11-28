@@ -52,7 +52,7 @@ class ObjectStore extends Model
     }
 
     /**
-     * Scope a query to get the latest record by key.
+     * Scope a query to get the latest record by key. sorted by "created_at_timestamp" and "id" because of race-condition
      */
     public function scopeLatestByKey(Builder $query, string $key): Builder
     {
@@ -60,7 +60,9 @@ class ObjectStore extends Model
             ->orderByDesc('created_at_timestamp')
             ->orderByDesc('id');
     }
-
+    /**
+     * Scope a query to get the latest record with sorting. sorted by "created_at_timestamp" and "id" because of race-condition
+     */
     public function scopeLatestObjects(Builder $query): Builder
     {
         $latestIds = static::query()
@@ -75,7 +77,7 @@ class ObjectStore extends Model
     }
 
     /**
-     * Scope a query to get a record by key and timestamp.
+     * Scope a query to get a record by key and timestamp.sorted by "created_at_timestamp" and "id" because of race-condition
      */
     public function scopeByKeyAndTimestamp(Builder $query, string $key, int $timestamp): Builder
     {
