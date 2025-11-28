@@ -1,6 +1,7 @@
 ## 🕰️ Version-Controlled Key-Value Store
 
 A RESTful API that implements a time-traveling key-value store. It allows storing values, retrieving the latest version, and querying the state of a key at any specific point in time.
+This assignment applies to the styles I am currently working on.
 
 [![PHPUnit Tests](https://github.com/myathtut-zafir/version-controlled/actions/workflows/phpunit.yml/badge.svg)](https://github.com/myathtut-zafir/version-controlled/actions/workflows/phpunit.yml)
 [![Laravel Pint](https://github.com/myathtut-zafir/version-controlled/actions/workflows/pint.yml/badge.svg)](https://github.com/myathtut-zafir/version-controlled/actions/workflows/pint.yml)
@@ -9,9 +10,13 @@ A RESTful API that implements a time-traveling key-value store. It allows storin
 ![Laravel](https://img.shields.io/badge/Laravel-12.0-red)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
 
+## ⚠️ Assumptions on the Tasks.
+- **Task 4**:I interpreted "Displays all values currently stored" as a request for the current state snapshot of the key-value store. Therefore, the endpoint filters out historical versions and returns only the latest value for each unique key and sorted by the most recent update.
+- **production-quality**: In alignment with the goal of building a production-quality service, this project prioritizes maintainability and process. I focus on not only code. I utilized a strict Git Flow workflow to simulate a team environment and focused heavily on code simplicity and readability to ensure the system is easy for other developers to understand and extend.
+
 ## Production urls
 ```bash
-production base url: https://version-controlled-production.up.railway.app
+production url: https://version-controlled-production.up.railway.app
 production api documentation url: https://version-controlled-production.up.railway.app/docs
 ``` 
 ## 🛠 Tech Stack
@@ -117,7 +122,7 @@ Content-Type: application/json
 
 **Validation Rules**:
 - `key`: required, string, max 255 characters
-- `value`: required, valid JSON object
+- `value`: required
 
 ---
 #### 2. **Accept a key and return the corresponding latest value**
@@ -143,6 +148,8 @@ GET /objects/my_key
     }
 }
 ```
+**Validation Rules**:
+- `key`: required, string, max 255 characters
 ---
 #### 3. **When given a key AND a timestamp, return whatever the value of the key at the time was.**
 ```http
@@ -167,7 +174,10 @@ GET /objects/keys/my_key?timestamp=1699999999
     }
 }
 ```
-
+**Validation Rules**:
+- `key`: required, string, max 255 characters
+- `timestamp`: required, integer
+- 
 **Notes**:
 - Returns the most recent version at or before the given timestamp
 - If no version exists before the timestamp, returns 404
@@ -320,7 +330,7 @@ GitHub Actions - Used to ensure all tests pass before a deployment is triggered.
 
 To ensure code stability and maintain a high-quality codebase, this project follows a strict **Feature Branch Workflow**:
 
-1.  **Protected Main Branch:** * The `main` branch is treated as the production-ready state.
+1.  **Protected Main Branch:** The `main` branch is treated as the production-ready state.
     * Direct pushes to `main` are **restricted**.
 
 2.  **Pull Request (PR) Process:**
