@@ -60,6 +60,7 @@ class ObjectStore extends Model
             ->orderByDesc('created_at_timestamp')
             ->orderByDesc('id');
     }
+
     /**
      * Scope a query to get the latest record with sorting. sorted by "created_at_timestamp" and "id" because of race-condition
      */
